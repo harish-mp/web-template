@@ -12,12 +12,14 @@ import (
 func AppInit() {
 
 	dbVendor := os.Getenv("APPDB")
+	dbhost := os.Getenv("DBHOST")
+	dbname := os.Getenv("DBNAME")
 	if dbVendor == "MongoDB" {
 		var (
 			dbVendor db.MongoDb
 		)
 		db.DbInstance = &dbVendor
-		db.Dbh = db.DbInstance.Connect("localhost:27017", "demoDb")
+		db.Dbh = db.DbInstance.Connect(dbhost, dbname)
 	} else {
 		log.Fatal("DB Vendor " + dbVendor + " not supported")
 	}
